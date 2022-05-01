@@ -1,0 +1,203 @@
+<commt>
+problem   = accretion onto SMBH
+configure = --prob=rotating_atmosphere --coord=spherical_polar
+
+<job>
+problem_id = Bondi          # problem ID: basename of output filenames
+
+# <output1>
+# file_type  = hst         # History data dump
+# #dt         = 31.415926536        # time increment between outputs 2*pi*5
+# dt         = 62.8318530718          # time increment between outputs 2*pi*10
+# #dt         = 12.566370614e1  # time increment between outputs 2*pi*20
+
+<output2>
+file_type  = rst         # History data dump
+#dt         = 31.415926536        # time increment between outputs 2*pi*5
+#dt         = 12.566370614e1  # time increment between outputs 2*pi*20
+dt         = 62.8318530718          # time increment between outputs 2*pi*100
+
+
+# #<output3>
+# #file_type  = hdf5         # Binary data dump
+# #variable   = m        # variables to be output
+# #dt         = 0.62831853072         # time increment between outputs
+# #dt         = 12.566370614e1  # time increment between outputs 2*pi*20
+# #cartesian_vector = true
+
+# #<output4>
+# #file_type  = hdf5         # Binary data dump
+# #variable   = bcc        # variables to be output
+# #id = bcc
+# #dt         = 0.62831853072         # time increment between outputs
+# #cartesian_vector = true
+# #ghost_zones = true
+
+<output5>
+file_type  = hdf5         # Binary data dump
+variable   = prim        # variables to be output
+#dt         = 31.415926536         # time increment between outputs 2*pi*5
+dt         = 62.8318530718          # time increment between outputs 2*pi*10
+#dt         = 12.566370614e1  # time increment between outputs 2*pi*20
+cartesian_vector = true
+x3_slice = 0.0
+
+#<output6>
+#file_type  = hdf5         # Binary data dump
+#variable   = uov        # variables to be output
+#id         = uov
+##dt         = 31.415926536         # time increment between outputs 2*pi*5
+#dt         = 62.8318530718          # time increment between outputs 2*pi*100
+##dt         = 12.566370614e1  # time increment between outputs 2*pi*20
+#cartesian_vector = true
+#x3_slice = 0.0
+
+# #<output7>
+# #file_type  = hdf5         # Binary data dump
+# #variable   = prim        # variables to be output
+# #id = prim3D
+# #dt         = 628.318530718    # time increment between outputs 2*pi*100
+# #cartesian_vector = true
+
+
+<time>
+cfl_number = 0.5         # The Courant, Friedrichs, & Lewy (CFL) Number
+#nlim       = -1      # cycle limit
+#nlim       = 1000      # cycle limit
+nlim       = 1      # cycle limit
+#nlim       = 100000000      # cycle limit
+tlim       = 12.566370614e4 # time limit 2*pi*20000
+integrator  = rk3       # time integration algorithm
+xorder      = 2         # order of spatial reconstruction
+ncycle_out  = 100         # interval for stdout summary info
+
+<mesh>
+nx1        = 256         # Number of zones in X1-direction
+#nx1        = 128         # Number of zones in X1-direction
+# x1min      = 0.03 # minimum value of X1
+# x1max      = 10.0  # maximum value of X1
+#nx1        = 256         # Number of zones in X1-direction
+x1min      = 1.0 # minimum value of X1
+x1max      = 3000.0  # maximum value of X1
+x1rat      = 1.03
+# ix1_bc     = outflow    # inner-X1 boundary flag
+#ox1_bc     = outflow    # outer-X1 boundary flag
+ix1_bc     = outflow    # inner-X1 boundary flag
+#ix1_bc     = outflow    # inner-X1 boundary flag
+#ix1_bc     = reflecting    # inner-X1 boundary flag
+ox1_bc     = outflow    # outer-X1 boundary flag
+
+nx2        = 256         # Number of zones in X2-direction
+#nx2        = 128         # Number of zones in X2-direction
+#nx2        = 64         # Number of zones in X2-direction
+#x2min      = 0.01   # minimum value of X2
+#x2max      = 3.131592653589793         # maximum value of X2
+#ix2_bc     = reflecting        # inner-X2 boundary flag
+#ox2_bc     = reflecting        # outer-X2 boundary flag
+
+#x2min      = 0.052359877559830   # minimum value of X2
+#x2max      = 3.089232776029963   # maximum value of X2
+x2min      = 0.01745329251994   # minimum value of X2
+x2max      = 3.12413936106985         # maximum value of X2
+ix2_bc     = reflecting        # inner-X2 boundary flag
+ox2_bc     = reflecting        # outer-X2 boundary flag
+#ix2_bc     = polar_wedge        # inner-X2 boundary flag
+#ox2_bc     = polar_wedge        # outer-X2 boundary flag
+#ix2_bc     = polar        # inner-X2 boundary flag
+#ox2_bc     = polar        # outer-X2 boundary flag
+
+nx3        = 1           # Number of zones in X3-direction
+x3min      = 0.0        # minimum value of X3
+x3max      = 6.283185307179586         # maximum value of X3
+ix3_bc     = periodic    # inner-X3 boundary flag
+ox3_bc     = periodic    # outer-X3 boundary flag
+
+#refinement = static
+
+<meshblock>
+nx1 = 64
+nx2 = 64
+nx3 = 1
+
+<refinement1>
+x1min = 1.0
+x1max = 50.0
+x2min = 0.5235987756 # 30 deg from the north pole
+x2max = 2.617993878  # 30 deg from the south pole
+#x2min = 1.0471975512 # 60 deg from the north pole
+#x2max = 2.0943951024  # 60 deg from the south pole
+#x2min = 0.0
+#x2max = 3.141592653589793
+#x2min      = 0.01   # minimum value of X2
+#x2max      = 3.131592653589793         # maximum value of X2
+x3min      = 0.0        # minimum value of X3
+x3max      = 6.283185307179586         # maximum value of X3
+level = 1
+
+<hydro>
+iso_sound_speed = 1.0 
+gamma      = 1.66666666666
+pfloor = 1e-10
+dfloor = 0.1
+
+<problem>
+beta_Bondi = 1e6
+#flag_Bz = 1
+flag_Bz = 0
+flag_Bz_type = 0
+amp = 0.01
+#amp = 0.00
+#dfloor_pole = 1e-3
+dfloor_pole = 1e-5
+GM   = 1.0 # "GM" of gravitational potential (GM/r) for the point mass source
+rho_inf = 1.0
+
+R_Bondi  = 1000.   #Bondi-radius
+Rcyl_cen = 30.
+# switch
+time_AddingB  = 5.02654824574e4   #time 2*pi*8000
+time_AddingNC = 3.14159265359e4   #time 2*pi*5000
+time_AddingVis= 4.08407044967e4   #time 2*pi*6500
+#time_AddingNC = 0.0  #time
+
+# uov
+flag_uov = 0 //66 values
+num_output_uov = 6
+
+# resistivity
+flag_res = 0
+den_res_lim = 1e2
+#eta_in   = 1e-4 #plasmabeta1e6
+eta_in   = 3e-2 #plasmabeta1e5
+eta_ohm = 1e-10
+
+# Newton-cooling
+flag_cooling = 0
+tem_cool = 1e-3
+rho_cool = 1e3
+tem_lim = 2.5e-5
+tem_lim_hot = 3e-2
+theta_start = 0.1745329252 #10deg
+theta_end   = 2.9670597284 #170deg
+
+# viscosity
+flag_vis = 0
+nu_iso   = 1e-10
+alpha    = 0.01
+den_eta  = 1e4
+
+#Normalization units
+tem_norm = 4.46e7
+rho_norm = 6.02
+time_norm = 4.97e9
+
+# damping layer
+f_den_damp = 3.0
+f_w_damp = 0.2
+f_Rin_torus = 7e-2
+f_tem_center = 0.5
+den_center = 1e-3
+#f_damp_min = 0.03
+f_damp_min = 100.
+f_damp_max = 100.
+
